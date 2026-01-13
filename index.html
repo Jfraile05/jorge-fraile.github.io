@@ -5,56 +5,371 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jorge Fraile | Undergraduate Systems Administrator</title>
   <meta name="description" content="Jorge Fraile – Undergraduate Systems Administrator and CS Junior at FSU. Linux/Windows ops, incident response, AWS fundamentals, projects." />
+  <meta name="theme-color" content="#0b0f17" />
+
   <style>
-    :root { --bg:#0b0f17; --card:#121a2a; --text:#e9eefc; --muted:#a9b5d1; --accent:#7c5cff; --line:#1f2a44; }
-    *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      background:radial-gradient(1000px 600px at 20% 0%, rgba(124,92,255,.25), transparent 60%),
-                 radial-gradient(1000px 600px at 80% 10%, rgba(0,208,255,.18), transparent 60%),
-                 var(--bg);
+    :root{
+      --bg:#0b0f17;
+      --card: rgba(18,26,42,.72);
+      --card2: rgba(18,26,42,.55);
+      --text:#e9eefc;
+      --muted:#a9b5d1;
+      --accent:#7c5cff;
+      --accent2:#00d0ff;
+      --line:#1f2a44;
+      --good:#42d39a;
+      --warn:#ffcc66;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:22px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
+      background: radial-gradient(1100px 650px at 20% 0%, rgba(124,92,255,.22), transparent 60%),
+                  radial-gradient(1100px 650px at 80% 10%, rgba(0,208,255,.16), transparent 60%),
+                  var(--bg);
+      overflow-x:hidden;
     }
     a{color:inherit;text-decoration:none}
-    .wrap{max-width:1050px;margin:0 auto;padding:28px 18px 60px}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0}
-    .brand{font-weight:700;letter-spacing:.2px}
-    .pill{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--line);background:rgba(18,26,42,.7);
-      padding:8px 12px;border-radius:999px;color:var(--muted)}
-    .pill a{padding:6px 10px;border-radius:999px}
-    .pill a:hover{background:rgba(124,92,255,.15);color:var(--text)}
-    .hero{margin-top:28px;display:grid;grid-template-columns:1.5fr .9fr;gap:18px;align-items:stretch}
-    @media (max-width:860px){.hero{grid-template-columns:1fr}}
-    .card{background:rgba(18,26,42,.75);border:1px solid var(--line);border-radius:18px;padding:18px}
-    h1{font-size:44px;line-height:1.05;margin:0 0 8px}
-    .sub{color:var(--muted);font-size:16px;line-height:1.55}
-    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;border-radius:12px;
-      border:1px solid var(--line);background:rgba(18,26,42,.9)}
-    .btn.primary{background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.55));border:none;color:#08101f;font-weight:700}
-    .btn:hover{transform:translateY(-1px)}
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+    }
+
+    /* Subtle animated grid + noise overlay */
+    .fx{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:-3;
+      opacity:.75;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 70px 70px;
+      mask-image: radial-gradient(800px 450px at 50% 20%, rgba(0,0,0,1), rgba(0,0,0,.2), transparent);
+      transform: translateZ(0);
+      animation: gridDrift 22s linear infinite;
+    }
+    @keyframes gridDrift{
+      from{background-position: 0 0, 0 0}
+      to{background-position: 140px 70px, 70px 140px}
+    }
+    .noise{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:-2;
+      opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.85'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    /* Parallax glow that follows cursor */
+    .glow{
+      position:fixed; inset:-40vh -40vw;
+      pointer-events:none;
+      z-index:-4;
+      background:
+        radial-gradient(650px 450px at var(--mx,50%) var(--my,20%), rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(650px 450px at calc(var(--mx,50%) + 18%) calc(var(--my,20%) + 12%), rgba(0,208,255,.14), transparent 65%),
+        radial-gradient(900px 700px at 50% 110%, rgba(255,255,255,.04), transparent 60%);
+      transition: background-position 120ms linear;
+      filter: saturate(1.05);
+    }
+
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 70px}
+    .nav{
+      position:sticky; top:0; z-index:20;
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      padding:12px 0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,23,.8), rgba(11,15,23,.45));
+      border-bottom:1px solid rgba(31,42,68,.55);
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.65));
+      box-shadow: 0 10px 30px rgba(124,92,255,.25);
+      display:grid;place-items:center;
+      color:#061023;font-weight:900;
+    }
+    .brand small{color:var(--muted);font-weight:600}
+
+    .pill{
+      display:inline-flex;gap:6px;align-items:center;
+      border:1px solid rgba(31,42,68,.8);
+      background: rgba(18,26,42,.55);
+      padding:6px;border-radius:999px;color:var(--muted);
+    }
+    .pill a{
+      padding:8px 11px;border-radius:999px;
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+    .pill a:hover{background:rgba(124,92,255,.16);color:var(--text);transform: translateY(-1px)}
+    .pill a.active{background:rgba(0,208,255,.14);color:var(--text)}
+
+    /* Hero */
+    .hero{margin-top:22px;display:grid;grid-template-columns:1.55fr .95fr;gap:14px;align-items:stretch}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}}
+    .card{
+      background:var(--card);
+      border:1px solid rgba(31,42,68,.75);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transform: translateZ(0);
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(420px 260px at 10% 0%, rgba(124,92,255,.20), transparent 60%),
+                  radial-gradient(420px 260px at 90% 15%, rgba(0,208,255,.14), transparent 60%);
+      opacity:.8;
+      pointer-events:none;
+      filter: blur(0px);
+      transition: opacity .25s ease;
+    }
+    .card:hover:before{opacity:1}
+
+    .chipline{
+      display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;
+      position:relative; z-index:2;
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
+      background: rgba(11,15,23,.35);
+      border:1px solid rgba(31,42,68,.8);
+      color:var(--muted);
+      font-size:13px;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform: translateY(-1px); border-color: rgba(124,92,255,.55)}
+    .statusdot{width:8px;height:8px;border-radius:999px;background:var(--good); box-shadow: 0 0 0 4px rgba(66,211,154,.15)}
+
+    h1{
+      font-size:46px;line-height:1.05;margin:0 0 8px;
+      position:relative; z-index:2;
+      letter-spacing:-.02em;
+    }
+    .sub{
+      color:var(--muted);font-size:16px;line-height:1.55;
+      position:relative; z-index:2;
+    }
+    .sub strong{color:var(--text); font-weight:700}
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;position:relative; z-index:2}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:10px 14px;border-radius:14px;
+      border:1px solid rgba(31,42,68,.85);
+      background: rgba(18,26,42,.65);
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.98), rgba(0,208,255,.62));
+      border:none;color:#061023;font-weight:800;
+      box-shadow: 0 14px 40px rgba(124,92,255,.22);
+    }
+    .btn:hover{transform: translateY(-2px)}
+    .btn:active{transform: translateY(0px); filter: brightness(.98)}
+    .btn .icon{opacity:.9}
+
     .mini{display:grid;gap:10px}
-    .tag{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;border:1px dashed rgba(124,92,255,.45);color:var(--muted)}
-    .sec{margin-top:18px;display:grid;gap:12px}
+    .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.14em}
+    .tag{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:12px 12px;border-radius:16px;
+      border:1px solid rgba(31,42,68,.75);
+      background: rgba(11,15,23,.28);
+      color:var(--muted);
+      transition: transform .18s ease, border-color .18s ease;
+      position:relative; z-index:2;
+    }
+    .tag:hover{transform: translateY(-2px); border-color: rgba(0,208,255,.35)}
+    .tag b{color:var(--text)}
+    .tag .badge{
+      margin-left:auto;
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(124,92,255,.35);
+      color:var(--muted);
+      background: rgba(124,92,255,.10);
+    }
+
+    /* Sections */
+    .sec{margin-top:16px;display:grid;gap:12px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    @media (max-width:860px){.grid{grid-template-columns:1fr}}
-    h2{margin:0;font-size:18px}
-    .k{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.12em}
-    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6}
-    .proj p{color:var(--muted);margin:8px 0 0;line-height:1.55}
-    .footer{margin-top:22px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    input,textarea{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--line);
-      background:rgba(11,15,23,.55);color:var(--text);outline:none}
-    textarea{min-height:110px;resize:vertical}
+    @media (max-width:920px){.grid{grid-template-columns:1fr}}
+    h2{margin:0;font-size:18px;position:relative; z-index:2}
+    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6;position:relative; z-index:2}
+    .proj p{color:var(--muted);margin:8px 0 0;line-height:1.55;position:relative; z-index:2}
+
+    /* Timeline feel */
+    .timeline{
+      display:grid; gap:12px;
+    }
+    .role{
+      display:grid; gap:10px;
+    }
+    .roleTop{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+      position:relative; z-index:2;
+    }
+    .roleTop .meta{color:var(--muted);font-size:13px;line-height:1.4}
+    .roleTop .stamp{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(31,42,68,.75);
+      background: rgba(11,15,23,.30);
+      white-space:nowrap;
+    }
+    .divider{
+      height:1px;background: rgba(31,42,68,.75);
+      position:relative; z-index:2;
+    }
+
+    /* Hobbies interactive */
+    .hobbies{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;position:relative; z-index:2;
+    }
+    .hobby{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(31,42,68,.85);
+      background: rgba(18,26,42,.45);
+      color:var(--muted);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      cursor:pointer;
+    }
+    .hobby:hover{transform: translateY(-2px); border-color: rgba(124,92,255,.55)}
+    .hobby.active{
+      color:var(--text);
+      background: rgba(124,92,255,.12);
+      border-color: rgba(0,208,255,.35);
+    }
+    .hobby .spark{
+      width:10px;height:10px;border-radius:999px;
+      background: rgba(255,255,255,.22);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.06);
+    }
+    .hobby.active .spark{
+      background: var(--warn);
+      box-shadow: 0 0 0 5px rgba(255,204,102,.15);
+    }
+
+    .hobbyPanel{
+      margin-top:12px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(31,42,68,.75);
+      background: rgba(11,15,23,.30);
+      color:var(--muted);
+      position:relative; z-index:2;
+      overflow:hidden;
+    }
+    .hobbyPanel strong{color:var(--text)}
+
+    /* Contact */
+    input,textarea{
+      width:100%;
+      padding:12px 12px;border-radius:14px;
+      border:1px solid rgba(31,42,68,.9);
+      background: rgba(11,15,23,.50);
+      color:var(--text);
+      outline:none;
+      transition: border-color .15s ease, transform .15s ease;
+      position:relative; z-index:2;
+    }
+    input:focus, textarea:focus{border-color: rgba(0,208,255,.45)}
+    textarea{min-height:120px;resize:vertical}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:860px){.row{grid-template-columns:1fr}}
-    .small{font-size:13px;color:var(--muted);line-height:1.5;margin-top:10px}
-    .note{color:var(--muted);font-size:12px;margin-top:6px}
+    @media (max-width:920px){.row{grid-template-columns:1fr}}
+
+    .small{font-size:13px;color:var(--muted);line-height:1.5;margin-top:10px;position:relative; z-index:2}
+    .footer{
+      margin-top:18px;color:var(--muted);font-size:13px;
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      position:relative; z-index:2;
+    }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px) scale(.99);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Little “cursor trail” particles */
+    .p{
+      position:fixed;
+      width:6px;height:6px;border-radius:999px;
+      background: rgba(0,208,255,.26);
+      pointer-events:none;
+      z-index:30;
+      filter: blur(.1px);
+      transform: translate(-50%,-50%);
+      animation: pop 700ms ease forwards;
+    }
+    @keyframes pop{
+      0%{opacity:0; transform: translate(-50%,-50%) scale(.8)}
+      15%{opacity:1}
+      100%{opacity:0; transform: translate(-50%,-50%) scale(1.8)}
+    }
+
+    /* Tiny helper */
+    .hint{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:10px 12px;border-radius:16px;
+      border:1px solid rgba(31,42,68,.75);
+      background: rgba(11,15,23,.30);
+      color:var(--muted);
+      position:relative; z-index:2;
+      margin-top:12px;
+    }
+    .hint code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      padding:5px 8px;border-radius:10px;
+      border:1px solid rgba(31,42,68,.8);
+      background: rgba(18,26,42,.35);
+      color:var(--text);
+    }
   </style>
 </head>
+
 <body>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="fx" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
   <div class="wrap">
     <div class="nav">
-      <div class="brand">JF</div>
-      <div class="pill">
+      <div class="brand">
+        <div class="logo">JF</div>
+        <div>
+          Jorge Fraile<br/>
+          <small>Undergraduate Systems Administrator</small>
+        </div>
+      </div>
+
+      <div class="pill" id="navPill">
         <a href="#about">About</a>
         <a href="#work">Work</a>
         <a href="#projects">Projects</a>
@@ -63,41 +378,94 @@
     </div>
 
     <section class="hero">
-      <div class="card">
+      <div class="card reveal">
+        <div class="chipline">
+          <span class="chip"><span class="statusdot"></span> Available for internships</span>
+          <span class="chip">FSU CS Junior</span>
+          <span class="chip">Linux + Windows Ops</span>
+          <span class="chip">Cloud learning: AWS</span>
+        </div>
+
         <h1>Jorge Fraile</h1>
         <div class="sub">
           Undergraduate Systems Administrator • CS Junior @ Florida State University<br/>
-          I keep systems reliable, users unblocked, and downtime low. Building toward cloud + infrastructure roles.
+          I keep systems reliable, users unblocked, and downtime low. Building toward <strong>cloud + infrastructure</strong> roles.
         </div>
+
         <div class="btns">
-          <a class="btn primary" href="YOUR_RESUME_LINK.pdf" target="_blank" rel="noopener">View Resume</a>
-          <a class="btn" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="https://github.com/Jfraile05" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="#contact">Contact Me</a>
+          <a class="btn primary" href="YOUR_RESUME_LINK.pdf" target="_blank" rel="noopener">
+            <span class="icon">📄</span> View Resume
+          </a>
+          <a class="btn" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">
+            <span class="icon">🔗</span> LinkedIn
+          </a>
+          <a class="btn" href="https://github.com/Jfraile05" target="_blank" rel="noopener">
+            <span class="icon">💻</span> GitHub
+          </a>
+          <a class="btn" href="#contact">
+            <span class="icon">✉️</span> Contact Me
+          </a>
+        </div>
+
+        <div class="hint">
+          <div>Quick vibe check: I’m technical, but I’m not a robot.</div>
+          <code>Scroll ↓ for the human side</code>
         </div>
       </div>
 
-      <div class="card mini">
+      <div class="card mini reveal">
         <div class="k">Now</div>
-        <div class="tag">🛠️ IT Ops: Linux + Windows support</div>
-        <div class="tag">☁️ Cloud learning: AWS EC2, security groups</div>
-        <div class="tag">🧠 Building: C/C++ systems fundamentals</div>
-        <div class="tag">🌎 Bilingual: English + Spanish</div>
+
+        <div class="tag">
+          <div>🛠️ <b>IT Ops</b><br/>Linux + Windows support, endpoint troubleshooting, classroom tech</div>
+          <div class="badge">hands-on</div>
+        </div>
+
+        <div class="tag">
+          <div>☁️ <b>Cloud learning</b><br/>AWS EC2, security groups, service uptime habits</div>
+          <div class="badge">building</div>
+        </div>
+
+        <div class="tag">
+          <div>🧠 <b>CS fundamentals</b><br/>C/C++ reliability, debugging, clean structure</div>
+          <div class="badge">sharp</div>
+        </div>
+
+        <div class="tag">
+          <div>🌎 <b>Bilingual</b><br/>English + Spanish</div>
+          <div class="badge">clear comms</div>
+        </div>
       </div>
     </section>
 
     <section id="about" class="sec">
-      <div class="card">
+      <div class="card reveal">
         <div class="k">About</div>
-        <p class="sub" style="margin:8px 0 0">
+        <p class="sub" style="margin:10px 0 0">
           I’m a Computer Science junior at FSU working with the Department of Computer Science Systems Group.
           I support Linux and Windows systems, classroom technology, and high-volume department equipment.
           I like clean troubleshooting, clear documentation, and fixes that stick.
         </p>
+
+        <div class="k" style="margin-top:14px">Outside of work</div>
+        <div class="sub" style="margin-top:8px">
+          I’m big on routines and skill-building. If I’m not solving tickets or coding, I’m probably training, cooking, or tracking markets.
+        </div>
+
+        <div class="hobbies" id="hobbies">
+          <div class="hobby active" data-key="gym"><span class="spark"></span> Gym</div>
+          <div class="hobby" data-key="trading"><span class="spark"></span> Trading</div>
+          <div class="hobby" data-key="cooking"><span class="spark"></span> Cooking</div>
+          <div class="hobby" data-key="swimming"><span class="spark"></span> Swimming</div>
+        </div>
+
+        <div class="hobbyPanel" id="hobbyPanel" aria-live="polite">
+          <strong>Gym:</strong> Consistency mindset. I like measurable progress and disciplined routines. It carries into how I troubleshoot and build systems.
+        </div>
       </div>
 
       <div class="grid">
-        <div class="card">
+        <div class="card reveal">
           <div class="k">Top Skills</div>
           <ul>
             <li>Linux & Windows administration</li>
@@ -107,7 +475,8 @@
             <li>AWS fundamentals (EC2, security groups)</li>
           </ul>
         </div>
-        <div class="card">
+
+        <div class="card reveal">
           <div class="k">Coursework</div>
           <ul>
             <li>Advanced Java Programming</li>
@@ -116,7 +485,8 @@
             <li>Edge Networks</li>
           </ul>
         </div>
-        <div class="card">
+
+        <div class="card reveal">
           <div class="k">Tools / Platforms</div>
           <ul>
             <li>Linux, Windows 11, macOS</li>
@@ -129,60 +499,92 @@
     </section>
 
     <section id="work" class="sec">
-      <div class="card">
+      <div class="card reveal">
         <div class="k">Experience</div>
-        <h2>Systems Administration Technician, Systems Group • FSU Computer Science</h2>
-        <ul>
-          <li>Support Linux and Windows systems with end-user troubleshooting and maintenance.</li>
-          <li>Handle incident response, queue management, and root-cause analysis through ticket workflows.</li>
-          <li>Monitor alerts and after-hours queues; improve reliability with automation-aware processes.</li>
-          <li>Maintain asset inventory and support PC lifecycle management (setup, refresh, maintenance).</li>
-        </ul>
+
+        <div class="timeline">
+          <div class="role">
+            <div class="roleTop">
+              <div>
+                <h2>Systems Administration Technician, Systems Group • FSU Computer Science</h2>
+                <div class="meta">Hands-on support across faculty systems, classrooms, and department-wide equipment.</div>
+              </div>
+              <div class="stamp">Current</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <ul>
+              <li>Support Linux and Windows systems with end-user troubleshooting and maintenance.</li>
+              <li>Handle incident response, queue management, and root-cause analysis through ticket workflows.</li>
+              <li>Monitor alerts and after-hours queues; improve reliability with automation-aware processes.</li>
+              <li>Maintain asset inventory and support PC lifecycle management (setup, refresh, maintenance).</li>
+            </ul>
+
+            <div class="hint">
+              <div>My default style: calm, methodical, fix the root cause.</div>
+              <code>triage → isolate → resolve → document</code>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <section id="projects" class="sec">
       <div class="grid">
-        <div class="card proj">
+        <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>AWS EC2 REST API Service (Linux) • Python</h2>
           <p>Deployed a Linux service on EC2 with systemd + gunicorn, security groups, health checks, and structured request validation.</p>
+          <div class="chipline" style="margin-top:12px">
+            <span class="chip">EC2</span><span class="chip">systemd</span><span class="chip">health checks</span><span class="chip">Linux</span>
+          </div>
         </div>
-        <div class="card proj">
+
+        <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>Digital Banking Management System • C++</h2>
           <p>Built a system for 10K+ records emphasizing validation, fault isolation, and improved data retrieval performance.</p>
+          <div class="chipline" style="margin-top:12px">
+            <span class="chip">C++</span><span class="chip">validation</span><span class="chip">performance</span><span class="chip">Git</span>
+          </div>
         </div>
-        <div class="card proj">
+
+        <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>Pokemon Simulator • C++</h2>
           <p>Large-scale simulation focused on stability and controlled state management across 100K+ outcomes with better file I/O.</p>
+          <div class="chipline" style="margin-top:12px">
+            <span class="chip">simulation</span><span class="chip">file I/O</span><span class="chip">stability</span><span class="chip">C++</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="contact" class="sec">
-      <div class="card">
+      <div class="card reveal">
         <div class="k">Contact</div>
         <h2>Send a message</h2>
-        <p class="sub" style="margin:8px 0 12px">If you’re hiring for IT, systems, cloud, or infrastructure roles, I’ll respond fast.</p>
+        <p class="sub" style="margin:8px 0 12px">
+          If you’re hiring for IT, systems, cloud, or infrastructure roles, I’ll respond fast.
+        </p>
 
-        <!-- OPTION A: Formspree (replace action URL) -->
-        <form
-  action="https://formspree.io/f/xdaaoddk"
-  method="POST"
->
-  <div class="row">
-    <input type="text" name="name" placeholder="Your name" required />
-    <input type="email" name="email" placeholder="Your email" required />
-  </div>
+        <form action="https://formspree.io/f/xdaaoddk" method="POST" id="contactForm">
+          <div class="row">
+            <input type="text" name="name" placeholder="Your name" required />
+            <input type="email" name="email" placeholder="Your email" required />
+          </div>
 
-  <input type="hidden" name="_subject" value="New message from personal website" />
+          <input type="hidden" name="_subject" value="New message from personal website" />
 
-  <textarea name="message" placeholder="Message" required></textarea>
+          <textarea name="message" placeholder="Message" required></textarea>
 
-  <button type="submit" class="btn primary">Send</button>
-</form>
+          <button type="submit" class="btn primary" style="margin-top:10px">
+            <span class="icon">🚀</span> Send
+          </button>
+          <div class="note" id="formNote" style="margin-top:8px;color:var(--muted);position:relative;z-index:2"></div>
+        </form>
 
         <div class="small">
           Or email me directly: <a href="mailto:Jf23a@fsu.edu">Jf23a@fsu.edu</a>
@@ -191,13 +593,118 @@
 
       <div class="footer">
         <div>© <span id="y"></span> Jorge Fraile</div>
-        <div>Built with HTML/CSS. Deployed on GitHub Pages.</div>
+        <div>Built with HTML/CSS/JS. Deployed on GitHub Pages.</div>
       </div>
     </section>
   </div>
 
   <script>
+    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Cursor-follow glow
+    const root = document.documentElement;
+    const hasReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!hasReduced) {
+      window.addEventListener("mousemove", (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        root.style.setProperty("--mx", x + "%");
+        root.style.setProperty("--my", y + "%");
+      }, { passive: true });
+    }
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Active nav state
+    const navLinks = Array.from(document.querySelectorAll("#navPill a"));
+    const sections = navLinks.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+
+    const navIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const id = "#" + en.target.id;
+        navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === id));
+      });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0.01 });
+
+    sections.forEach(sec => navIO.observe(sec));
+
+    // Hobby interaction
+    const hobbyCopy = {
+      gym: {
+        title: "Gym",
+        text: "Consistency mindset. I like measurable progress and disciplined routines. It carries into how I troubleshoot and build systems."
+      },
+      trading: {
+        title: "Trading",
+        text: "Risk management and discipline. I focus on process and probability, not hype. Same approach to incidents: control variables and act fast."
+      },
+      cooking: {
+        title: "Cooking",
+        text: "Systems thinking in a different form. Prep, timing, cleanup, repeatability. I like making good results consistent."
+      },
+      swimming: {
+        title: "Swimming",
+        text: "Clear head, endurance, steady pace. It keeps me sharp and helps me stay calm under pressure when issues hit."
+      }
+    };
+
+    const hobbies = document.getElementById("hobbies");
+    const panel = document.getElementById("hobbyPanel");
+
+    hobbies.addEventListener("click", (e) => {
+      const btn = e.target.closest(".hobby");
+      if (!btn) return;
+
+      const key = btn.getAttribute("data-key");
+      if (!hobbyCopy[key]) return;
+
+      document.querySelectorAll(".hobby").forEach(h => h.classList.toggle("active", h === btn));
+
+      const { title, text } = hobbyCopy[key];
+      panel.innerHTML = "<strong>" + title + ":</strong> " + text;
+
+      // Tiny pulse effect
+      panel.animate([
+        { transform: "translateY(2px)", opacity: .85 },
+        { transform: "translateY(0px)", opacity: 1 }
+      ], { duration: 220, easing: "ease-out" });
+    });
+
+    // Micro particle trail (subtle)
+    if (!hasReduced) {
+      let last = 0;
+      window.addEventListener("pointermove", (e) => {
+        const now = performance.now();
+        if (now - last < 55) return; // throttle
+        last = now;
+
+        const d = document.createElement("div");
+        d.className = "p";
+        d.style.left = e.clientX + "px";
+        d.style.top = e.clientY + "px";
+        document.body.appendChild(d);
+        setTimeout(() => d.remove(), 800);
+      }, { passive: true });
+    }
+
+    // Contact form tiny UX note (does not block Formspree)
+    const form = document.getElementById("contactForm");
+    const note = document.getElementById("formNote");
+    form.addEventListener("submit", () => {
+      note.textContent = "Sending…";
+    });
   </script>
 </body>
 </html>
