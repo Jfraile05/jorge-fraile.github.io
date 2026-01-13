@@ -11,7 +11,6 @@
     :root{
       --bg:#0b0f17;
       --card: rgba(18,26,42,.72);
-      --card2: rgba(18,26,42,.55);
       --text:#e9eefc;
       --muted:#a9b5d1;
       --accent:#7c5cff;
@@ -21,7 +20,6 @@
       --warn:#ffcc66;
       --shadow: 0 18px 60px rgba(0,0,0,.35);
       --radius:18px;
-      --radius2:22px;
     }
 
     *{box-sizing:border-box}
@@ -37,12 +35,11 @@
     }
     a{color:inherit;text-decoration:none}
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
     }
 
-    /* Subtle animated grid + noise overlay */
+    /* Background FX */
     .fx{
       position:fixed; inset:0;
       pointer-events:none;
@@ -68,8 +65,6 @@
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.85'/%3E%3C/svg%3E");
       background-size: 220px 220px;
     }
-
-    /* Parallax glow that follows cursor */
     .glow{
       position:fixed; inset:-40vh -40vw;
       pointer-events:none;
@@ -82,44 +77,79 @@
       filter: saturate(1.05);
     }
 
-    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 70px}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 18px 70px}
+
+    /* Header */
     .nav{
       position:sticky; top:0; z-index:20;
       display:flex;justify-content:space-between;align-items:center;gap:12px;
       padding:12px 0;
+      flex-wrap:wrap; /* important so nothing gets chopped */
       backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(11,15,23,.8), rgba(11,15,23,.45));
+      background: linear-gradient(to bottom, rgba(11,15,23,.82), rgba(11,15,23,.45));
       border-bottom:1px solid rgba(31,42,68,.55);
     }
+
     .brand{
-      display:flex;align-items:center;gap:10px;
-      font-weight:800; letter-spacing:.2px;
+      display:flex;align-items:center;gap:12px;
+      min-width:260px;
+      flex: 1 1 auto;
     }
-    .logo{
-      width:34px;height:34px;border-radius:12px;
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.65));
-      box-shadow: 0 10px 30px rgba(124,92,255,.25);
-      display:grid;place-items:center;
-      color:#061023;font-weight:900;
-    }
+    .brandText{min-width:0}
+    .brandName{font-weight:900;letter-spacing:-.01em}
     .brand small{color:var(--muted);font-weight:600}
 
+    /* Avatar: put your photo at assets/headshot.jpg */
+    .avatarRing{
+      width:40px;height:40px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.70));
+      padding:2px;
+      box-shadow: 0 12px 40px rgba(124,92,255,.25);
+      animation: floaty 6s ease-in-out infinite;
+      flex: 0 0 auto;
+    }
+    .avatar{
+      width:100%;height:100%;
+      border-radius:12px;
+      object-fit:cover;
+      display:block;
+      background: rgba(11,15,23,.4);
+    }
+    @keyframes floaty{
+      0%,100%{transform: translateY(0)}
+      50%{transform: translateY(-2px)}
+    }
+
     .pill{
-      display:inline-flex;gap:6px;align-items:center;
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
       border:1px solid rgba(31,42,68,.8);
       background: rgba(18,26,42,.55);
       padding:6px;border-radius:999px;color:var(--muted);
+
+      max-width: 100%;
+      overflow-x: auto;                 /* fix truncation: scroll instead of cut */
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
     }
+    .pill::-webkit-scrollbar{height:6px}
+    .pill::-webkit-scrollbar-thumb{background: rgba(169,181,209,.18); border-radius:999px}
     .pill a{
       padding:8px 11px;border-radius:999px;
       transition: transform .15s ease, background .15s ease, color .15s ease;
+      display:inline-block;
     }
     .pill a:hover{background:rgba(124,92,255,.16);color:var(--text);transform: translateY(-1px)}
     .pill a.active{background:rgba(0,208,255,.14);color:var(--text)}
 
-    /* Hero */
-    .hero{margin-top:22px;display:grid;grid-template-columns:1.55fr .95fr;gap:14px;align-items:stretch}
+    /* Layout */
+    .hero{margin-top:18px;display:grid;grid-template-columns:1.55fr .95fr;gap:14px;align-items:stretch}
     @media (max-width:920px){.hero{grid-template-columns:1fr}}
+    .sec{margin-top:16px;display:grid;gap:12px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media (max-width:920px){.grid{grid-template-columns:1fr}}
+
     .card{
       background:var(--card);
       border:1px solid rgba(31,42,68,.75);
@@ -135,17 +165,24 @@
       position:absolute; inset:-2px;
       background: radial-gradient(420px 260px at 10% 0%, rgba(124,92,255,.20), transparent 60%),
                   radial-gradient(420px 260px at 90% 15%, rgba(0,208,255,.14), transparent 60%);
-      opacity:.8;
+      opacity:.85;
       pointer-events:none;
-      filter: blur(0px);
       transition: opacity .25s ease;
     }
     .card:hover:before{opacity:1}
 
-    .chipline{
-      display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;
+    .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.14em;position:relative;z-index:2}
+
+    h1{
+      font-size:46px;line-height:1.05;margin:8px 0 8px;
       position:relative; z-index:2;
+      letter-spacing:-.02em;
     }
+    h2{margin:0;font-size:18px;position:relative;z-index:2}
+    .sub{color:var(--muted);font-size:16px;line-height:1.55;position:relative;z-index:2}
+    .sub strong{color:var(--text);font-weight:800}
+
+    .chipline{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px;position:relative;z-index:2}
     .chip{
       display:inline-flex;align-items:center;gap:8px;
       padding:8px 10px;border-radius:999px;
@@ -158,17 +195,7 @@
     .chip:hover{transform: translateY(-1px); border-color: rgba(124,92,255,.55)}
     .statusdot{width:8px;height:8px;border-radius:999px;background:var(--good); box-shadow: 0 0 0 4px rgba(66,211,154,.15)}
 
-    h1{
-      font-size:46px;line-height:1.05;margin:0 0 8px;
-      position:relative; z-index:2;
-      letter-spacing:-.02em;
-    }
-    .sub{
-      color:var(--muted);font-size:16px;line-height:1.55;
-      position:relative; z-index:2;
-    }
-    .sub strong{color:var(--text); font-weight:700}
-    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;position:relative; z-index:2}
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;position:relative;z-index:2}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       padding:10px 14px;border-radius:14px;
@@ -176,18 +203,17 @@
       background: rgba(18,26,42,.65);
       transition: transform .15s ease, filter .15s ease, background .15s ease;
       user-select:none;
+      cursor:pointer;
     }
     .btn.primary{
       background: linear-gradient(135deg, rgba(124,92,255,.98), rgba(0,208,255,.62));
-      border:none;color:#061023;font-weight:800;
+      border:none;color:#061023;font-weight:900;
       box-shadow: 0 14px 40px rgba(124,92,255,.22);
     }
     .btn:hover{transform: translateY(-2px)}
     .btn:active{transform: translateY(0px); filter: brightness(.98)}
-    .btn .icon{opacity:.9}
 
     .mini{display:grid;gap:10px}
-    .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.14em}
     .tag{
       display:flex;gap:10px;align-items:flex-start;
       padding:12px 12px;border-radius:16px;
@@ -195,7 +221,7 @@
       background: rgba(11,15,23,.28);
       color:var(--muted);
       transition: transform .18s ease, border-color .18s ease;
-      position:relative; z-index:2;
+      position:relative;z-index:2;
     }
     .tag:hover{transform: translateY(-2px); border-color: rgba(0,208,255,.35)}
     .tag b{color:var(--text)}
@@ -207,44 +233,66 @@
       border:1px solid rgba(124,92,255,.35);
       color:var(--muted);
       background: rgba(124,92,255,.10);
-    }
-
-    /* Sections */
-    .sec{margin-top:16px;display:grid;gap:12px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    @media (max-width:920px){.grid{grid-template-columns:1fr}}
-    h2{margin:0;font-size:18px;position:relative; z-index:2}
-    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6;position:relative; z-index:2}
-    .proj p{color:var(--muted);margin:8px 0 0;line-height:1.55;position:relative; z-index:2}
-
-    /* Timeline feel */
-    .timeline{
-      display:grid; gap:12px;
-    }
-    .role{
-      display:grid; gap:10px;
-    }
-    .roleTop{
-      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-      position:relative; z-index:2;
-    }
-    .roleTop .meta{color:var(--muted);font-size:13px;line-height:1.4}
-    .roleTop .stamp{
-      font-size:12px; color:var(--muted);
-      padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(31,42,68,.75);
-      background: rgba(11,15,23,.30);
       white-space:nowrap;
     }
-    .divider{
-      height:1px;background: rgba(31,42,68,.75);
-      position:relative; z-index:2;
+
+    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6;position:relative;z-index:2}
+    .proj p{color:var(--muted);margin:8px 0 0;line-height:1.55;position:relative;z-index:2}
+
+    /* Horizontal scroll story */
+    .hwrap{display:flex;align-items:center;gap:10px;margin-top:12px;position:relative;z-index:2}
+    .hbtn{
+      width:42px;height:42px;border-radius:14px;
+      border:1px solid rgba(31,42,68,.85);
+      background: rgba(18,26,42,.55);
+      color:var(--text);
+      cursor:pointer;
+      transition: transform .15s ease;
+      flex: 0 0 auto;
     }
+    .hbtn:hover{transform: translateY(-2px)}
+    .hscroll{
+      display:flex; gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding:6px 2px 10px;
+      flex:1 1 auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hscroll::-webkit-scrollbar{height:8px}
+    .hscroll::-webkit-scrollbar-thumb{background: rgba(169,181,209,.16); border-radius:999px}
+    .hpanel{
+      min-width: 340px;
+      max-width: 560px;
+      scroll-snap-align: start;
+      border-radius: 18px;
+      border:1px solid rgba(31,42,68,.75);
+      background: rgba(11,15,23,.30);
+      padding:16px;
+      box-shadow: 0 16px 50px rgba(0,0,0,.25);
+      transform: translateX(-10px);
+      opacity: 0;
+      animation: slideIn 700ms ease forwards;
+      position:relative;
+      overflow:hidden;
+    }
+    .hpanel:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(380px 240px at 15% 10%, rgba(0,208,255,.10), transparent 55%),
+                  radial-gradient(380px 240px at 85% 15%, rgba(124,92,255,.14), transparent 60%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .hpanel > *{position:relative; z-index:2}
+    .hpanel:nth-child(2){animation-delay: 80ms}
+    .hpanel:nth-child(3){animation-delay: 160ms}
+    .hpanel:nth-child(4){animation-delay: 240ms}
+    @keyframes slideIn{to{transform: translateX(0); opacity: 1}}
 
     /* Hobbies interactive */
-    .hobbies{
-      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;position:relative; z-index:2;
-    }
+    .hobbies{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;position:relative;z-index:2}
     .hobby{
       display:inline-flex;align-items:center;gap:10px;
       padding:10px 12px;border-radius:999px;
@@ -253,6 +301,7 @@
       color:var(--muted);
       transition: transform .18s ease, border-color .18s ease, background .18s ease;
       cursor:pointer;
+      user-select:none;
     }
     .hobby:hover{transform: translateY(-2px); border-color: rgba(124,92,255,.55)}
     .hobby.active{
@@ -260,7 +309,7 @@
       background: rgba(124,92,255,.12);
       border-color: rgba(0,208,255,.35);
     }
-    .hobby .spark{
+    .spark{
       width:10px;height:10px;border-radius:999px;
       background: rgba(255,255,255,.22);
       box-shadow: 0 0 0 4px rgba(255,255,255,.06);
@@ -269,7 +318,6 @@
       background: var(--warn);
       box-shadow: 0 0 0 5px rgba(255,204,102,.15);
     }
-
     .hobbyPanel{
       margin-top:12px;
       padding:14px 14px;
@@ -290,7 +338,7 @@
       background: rgba(11,15,23,.50);
       color:var(--text);
       outline:none;
-      transition: border-color .15s ease, transform .15s ease;
+      transition: border-color .15s ease;
       position:relative; z-index:2;
     }
     input:focus, textarea:focus{border-color: rgba(0,208,255,.45)}
@@ -298,42 +346,12 @@
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     @media (max-width:920px){.row{grid-template-columns:1fr}}
 
-    .small{font-size:13px;color:var(--muted);line-height:1.5;margin-top:10px;position:relative; z-index:2}
+    .small{font-size:13px;color:var(--muted);line-height:1.5;margin-top:10px;position:relative;z-index:2}
     .footer{
       margin-top:18px;color:var(--muted);font-size:13px;
       display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       position:relative; z-index:2;
     }
-
-    /* Scroll reveal */
-    .reveal{
-      opacity:0;
-      transform: translateY(14px) scale(.99);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .reveal.in{
-      opacity:1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* Little “cursor trail” particles */
-    .p{
-      position:fixed;
-      width:6px;height:6px;border-radius:999px;
-      background: rgba(0,208,255,.26);
-      pointer-events:none;
-      z-index:30;
-      filter: blur(.1px);
-      transform: translate(-50%,-50%);
-      animation: pop 700ms ease forwards;
-    }
-    @keyframes pop{
-      0%{opacity:0; transform: translate(-50%,-50%) scale(.8)}
-      15%{opacity:1}
-      100%{opacity:0; transform: translate(-50%,-50%) scale(1.8)}
-    }
-
-    /* Tiny helper */
     .hint{
       display:flex;align-items:center;justify-content:space-between;gap:12px;
       padding:10px 12px;border-radius:16px;
@@ -351,6 +369,33 @@
       background: rgba(18,26,42,.35);
       color:var(--text);
     }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px) scale(.99);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Subtle particle */
+    .p{
+      position:fixed;
+      width:6px;height:6px;border-radius:999px;
+      background: rgba(0,208,255,.26);
+      pointer-events:none;
+      z-index:30;
+      transform: translate(-50%,-50%);
+      animation: pop 700ms ease forwards;
+    }
+    @keyframes pop{
+      0%{opacity:0; transform: translate(-50%,-50%) scale(.8)}
+      15%{opacity:1}
+      100%{opacity:0; transform: translate(-50%,-50%) scale(1.8)}
+    }
   </style>
 </head>
 
@@ -362,9 +407,11 @@
   <div class="wrap">
     <div class="nav">
       <div class="brand">
-        <div class="logo">JF</div>
-        <div>
-          Jorge Fraile<br/>
+        <div class="avatarRing">
+          <img class="avatar" src="assets/headshot.jpg" alt="Jorge Fraile headshot" />
+        </div>
+        <div class="brandText">
+          <div class="brandName">Jorge Fraile</div>
           <small>Undergraduate Systems Administrator</small>
         </div>
       </div>
@@ -393,18 +440,10 @@
         </div>
 
         <div class="btns">
-          <a class="btn primary" href="YOUR_RESUME_LINK.pdf" target="_blank" rel="noopener">
-            <span class="icon">📄</span> View Resume
-          </a>
-          <a class="btn" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">
-            <span class="icon">🔗</span> LinkedIn
-          </a>
-          <a class="btn" href="https://github.com/Jfraile05" target="_blank" rel="noopener">
-            <span class="icon">💻</span> GitHub
-          </a>
-          <a class="btn" href="#contact">
-            <span class="icon">✉️</span> Contact Me
-          </a>
+          <a class="btn primary" href="YOUR_RESUME_LINK.pdf" target="_blank" rel="noopener">📄 View Resume</a>
+          <a class="btn" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">🔗 LinkedIn</a>
+          <a class="btn" href="https://github.com/Jfraile05" target="_blank" rel="noopener">💻 GitHub</a>
+          <a class="btn" href="#contact">✉️ Contact Me</a>
         </div>
 
         <div class="hint">
@@ -434,6 +473,54 @@
         <div class="tag">
           <div>🌎 <b>Bilingual</b><br/>English + Spanish</div>
           <div class="badge">clear comms</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal scroll story -->
+    <section class="sec">
+      <div class="card reveal">
+        <div class="k">Scroll Story</div>
+        <div class="sub" style="margin-top:8px">Drag sideways. Or use the arrows. Quick snapshot of who I am.</div>
+
+        <div class="hwrap">
+          <button class="hbtn" id="leftBtn" aria-label="Scroll left">◀</button>
+
+          <div class="hscroll" id="hscroll">
+            <div class="hpanel">
+              <div class="k">About</div>
+              <h2 style="margin-top:6px">Systems-minded. Human-first.</h2>
+              <p class="sub" style="margin-top:8px">
+                I support real people with real problems. I like calm triage, clean fixes, and documentation that helps the next person.
+              </p>
+            </div>
+
+            <div class="hpanel">
+              <div class="k">Work Style</div>
+              <h2 style="margin-top:6px">Fast response. No drama.</h2>
+              <p class="sub" style="margin-top:8px">
+                Prioritize impact. Reduce downtime. Fix root causes. Automate repeat pain.
+              </p>
+            </div>
+
+            <div class="hpanel">
+              <div class="k">Interests</div>
+              <h2 style="margin-top:6px">Gym • Trading • Cooking • Swimming</h2>
+              <p class="sub" style="margin-top:8px">
+                I’m routine-driven. I like measurable progress and systems that compound over time.
+              </p>
+            </div>
+
+            <div class="hpanel">
+              <div class="k">Focus</div>
+              <h2 style="margin-top:6px">Cloud + infrastructure track</h2>
+              <p class="sub" style="margin-top:8px">
+                AWS fundamentals now. Reliability habits always. I want to build and operate production systems.
+              </p>
+            </div>
+          </div>
+
+          <button class="hbtn" id="rightBtn" aria-label="Scroll right">▶</button>
         </div>
       </div>
     </section>
@@ -501,33 +588,13 @@
     <section id="work" class="sec">
       <div class="card reveal">
         <div class="k">Experience</div>
-
-        <div class="timeline">
-          <div class="role">
-            <div class="roleTop">
-              <div>
-                <h2>Systems Administration Technician, Systems Group • FSU Computer Science</h2>
-                <div class="meta">Hands-on support across faculty systems, classrooms, and department-wide equipment.</div>
-              </div>
-              <div class="stamp">Current</div>
-            </div>
-
-            <div class="divider"></div>
-
-            <ul>
-              <li>Support Linux and Windows systems with end-user troubleshooting and maintenance.</li>
-              <li>Handle incident response, queue management, and root-cause analysis through ticket workflows.</li>
-              <li>Monitor alerts and after-hours queues; improve reliability with automation-aware processes.</li>
-              <li>Maintain asset inventory and support PC lifecycle management (setup, refresh, maintenance).</li>
-            </ul>
-
-            <div class="hint">
-              <div>My default style: calm, methodical, fix the root cause.</div>
-              <code>triage → isolate → resolve → document</code>
-            </div>
-          </div>
-        </div>
-
+        <h2>Systems Administration Technician, Systems Group • FSU Computer Science</h2>
+        <ul>
+          <li>Support Linux and Windows systems with end-user troubleshooting and maintenance.</li>
+          <li>Handle incident response, queue management, and root-cause analysis through ticket workflows.</li>
+          <li>Monitor alerts and after-hours queues; improve reliability with automation-aware processes.</li>
+          <li>Maintain asset inventory and support PC lifecycle management (setup, refresh, maintenance).</li>
+        </ul>
       </div>
     </section>
 
@@ -537,27 +604,18 @@
           <div class="k">Project</div>
           <h2>AWS EC2 REST API Service (Linux) • Python</h2>
           <p>Deployed a Linux service on EC2 with systemd + gunicorn, security groups, health checks, and structured request validation.</p>
-          <div class="chipline" style="margin-top:12px">
-            <span class="chip">EC2</span><span class="chip">systemd</span><span class="chip">health checks</span><span class="chip">Linux</span>
-          </div>
         </div>
 
         <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>Digital Banking Management System • C++</h2>
           <p>Built a system for 10K+ records emphasizing validation, fault isolation, and improved data retrieval performance.</p>
-          <div class="chipline" style="margin-top:12px">
-            <span class="chip">C++</span><span class="chip">validation</span><span class="chip">performance</span><span class="chip">Git</span>
-          </div>
         </div>
 
         <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>Pokemon Simulator • C++</h2>
           <p>Large-scale simulation focused on stability and controlled state management across 100K+ outcomes with better file I/O.</p>
-          <div class="chipline" style="margin-top:12px">
-            <span class="chip">simulation</span><span class="chip">file I/O</span><span class="chip">stability</span><span class="chip">C++</span>
-          </div>
         </div>
       </div>
     </section>
@@ -566,9 +624,7 @@
       <div class="card reveal">
         <div class="k">Contact</div>
         <h2>Send a message</h2>
-        <p class="sub" style="margin:8px 0 12px">
-          If you’re hiring for IT, systems, cloud, or infrastructure roles, I’ll respond fast.
-        </p>
+        <p class="sub" style="margin:8px 0 12px">If you’re hiring for IT, systems, cloud, or infrastructure roles, I’ll respond fast.</p>
 
         <form action="https://formspree.io/f/xdaaoddk" method="POST" id="contactForm">
           <div class="row">
@@ -577,13 +633,10 @@
           </div>
 
           <input type="hidden" name="_subject" value="New message from personal website" />
-
           <textarea name="message" placeholder="Message" required></textarea>
 
-          <button type="submit" class="btn primary" style="margin-top:10px">
-            <span class="icon">🚀</span> Send
-          </button>
-          <div class="note" id="formNote" style="margin-top:8px;color:var(--muted);position:relative;z-index:2"></div>
+          <button type="submit" class="btn primary" style="margin-top:10px">🚀 Send</button>
+          <div id="formNote" class="small" style="margin-top:8px"></div>
         </form>
 
         <div class="small">
@@ -663,31 +716,43 @@
     const hobbies = document.getElementById("hobbies");
     const panel = document.getElementById("hobbyPanel");
 
-    hobbies.addEventListener("click", (e) => {
-      const btn = e.target.closest(".hobby");
-      if (!btn) return;
+    if (hobbies && panel) {
+      hobbies.addEventListener("click", (e) => {
+        const btn = e.target.closest(".hobby");
+        if (!btn) return;
 
-      const key = btn.getAttribute("data-key");
-      if (!hobbyCopy[key]) return;
+        const key = btn.getAttribute("data-key");
+        if (!hobbyCopy[key]) return;
 
-      document.querySelectorAll(".hobby").forEach(h => h.classList.toggle("active", h === btn));
+        document.querySelectorAll(".hobby").forEach(h => h.classList.toggle("active", h === btn));
 
-      const { title, text } = hobbyCopy[key];
-      panel.innerHTML = "<strong>" + title + ":</strong> " + text;
+        const { title, text } = hobbyCopy[key];
+        panel.innerHTML = "<strong>" + title + ":</strong> " + text;
 
-      // Tiny pulse effect
-      panel.animate([
-        { transform: "translateY(2px)", opacity: .85 },
-        { transform: "translateY(0px)", opacity: 1 }
-      ], { duration: 220, easing: "ease-out" });
-    });
+        panel.animate([
+          { transform: "translateY(2px)", opacity: .85 },
+          { transform: "translateY(0px)", opacity: 1 }
+        ], { duration: 220, easing: "ease-out" });
+      });
+    }
 
-    // Micro particle trail (subtle)
+    // Horizontal scroll buttons
+    const hs = document.getElementById("hscroll");
+    const leftBtn = document.getElementById("leftBtn");
+    const rightBtn = document.getElementById("rightBtn");
+
+    if (hs && leftBtn && rightBtn) {
+      const step = () => Math.min(420, hs.clientWidth * 0.75);
+      leftBtn.addEventListener("click", () => hs.scrollBy({ left: -step(), behavior: "smooth" }));
+      rightBtn.addEventListener("click", () => hs.scrollBy({ left: step(), behavior: "smooth" }));
+    }
+
+    // Particle trail (subtle)
     if (!hasReduced) {
       let last = 0;
       window.addEventListener("pointermove", (e) => {
         const now = performance.now();
-        if (now - last < 55) return; // throttle
+        if (now - last < 55) return;
         last = now;
 
         const d = document.createElement("div");
@@ -699,12 +764,14 @@
       }, { passive: true });
     }
 
-    // Contact form tiny UX note (does not block Formspree)
+    // Contact form note
     const form = document.getElementById("contactForm");
     const note = document.getElementById("formNote");
-    form.addEventListener("submit", () => {
-      note.textContent = "Sending…";
-    });
+    if (form && note) {
+      form.addEventListener("submit", () => {
+        note.textContent = "Sending…";
+      });
+    }
   </script>
 </body>
 </html>
