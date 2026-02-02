@@ -3,59 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jorge Fraile | Undergraduate Systems Administrator</title>
-  <meta name="description" content="Jorge Fraile – Undergraduate Systems Administrator and CS Junior at FSU. Linux/Windows ops, incident response, AWS fundamentals, projects." />
-  <meta name="theme-color" content="#0b0f17" />
+  <title>Jorge Fraile | Systems + Cloud</title>
+  <meta name="description" content="Jorge Fraile — Undergraduate Systems Administrator and CS Junior at FSU. Linux/Windows ops, incident response, cloud projects." />
+  <meta name="theme-color" content="#0b1020" />
 
   <style>
     :root{
-      --bg:#0b0f17;
-      --card: rgba(18,26,42,.72);
-      --text:#e9eefc;
-      --muted:#a9b5d1;
-      --accent:#7c5cff;
-      --accent2:#00d0ff;
-      --line:#1f2a44;
-      --good:#42d39a;
-      --warn:#ffcc66;
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
-      --radius:18px;
+      /* Brighter, more energetic palette */
+      --bg0:#060913;
+      --bg1:#0b1020;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --text:#eef3ff;
+      --muted:#b8c4e6;
+
+      --a1:#7c5cff;   /* violet */
+      --a2:#00d0ff;   /* cyan */
+      --a3:#42d39a;   /* green */
+      --a4:#ffcc66;   /* warm */
+      --line: rgba(160,180,220,.18);
+
+      --shadow: 0 22px 70px rgba(0,0,0,.45);
+      --radius: 22px;
+
+      --focus: rgba(0,208,255,.55);
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
-      background: radial-gradient(1100px 650px at 20% 0%, rgba(124,92,255,.22), transparent 60%),
-                  radial-gradient(1100px 650px at 80% 10%, rgba(0,208,255,.16), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(1200px 700px at 18% 0%, rgba(124,92,255,.32), transparent 60%),
+        radial-gradient(1000px 640px at 88% 8%, rgba(0,208,255,.26), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(66,211,154,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
     @media (prefers-reduced-motion: reduce){
       *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
     }
 
-    /* Background FX */
+    /* Subtle animated background grid + noise */
     .fx{
       position:fixed; inset:0;
       pointer-events:none;
       z-index:-3;
-      opacity:.75;
+      opacity:.7;
       background:
-        linear-gradient(to right, rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 70px 70px;
-      mask-image: radial-gradient(800px 450px at 50% 20%, rgba(0,0,0,1), rgba(0,0,0,.2), transparent);
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(900px 520px at 50% 18%, rgba(0,0,0,1), rgba(0,0,0,.25), transparent);
       transform: translateZ(0);
-      animation: gridDrift 22s linear infinite;
+      animation: gridDrift 20s linear infinite;
     }
     @keyframes gridDrift{
       from{background-position: 0 0, 0 0}
-      to{background-position: 140px 70px, 70px 140px}
+      to{background-position: 144px 72px, 72px 144px}
     }
     .noise{
       position:fixed; inset:0;
@@ -66,93 +76,89 @@
       background-size: 220px 220px;
     }
     .glow{
-      position:fixed; inset:-40vh -40vw;
+      position:fixed; inset:-45vh -45vw;
       pointer-events:none;
       z-index:-4;
       background:
-        radial-gradient(650px 450px at var(--mx,50%) var(--my,20%), rgba(124,92,255,.22), transparent 60%),
-        radial-gradient(650px 450px at calc(var(--mx,50%) + 18%) calc(var(--my,20%) + 12%), rgba(0,208,255,.14), transparent 65%),
-        radial-gradient(900px 700px at 50% 110%, rgba(255,255,255,.04), transparent 60%);
+        radial-gradient(650px 450px at var(--mx,50%) var(--my,20%), rgba(124,92,255,.28), transparent 60%),
+        radial-gradient(650px 450px at calc(var(--mx,50%) + 18%) calc(var(--my,20%) + 12%), rgba(0,208,255,.20), transparent 65%),
+        radial-gradient(700px 520px at calc(var(--mx,50%) - 20%) calc(var(--my,20%) + 22%), rgba(66,211,154,.16), transparent 62%);
+      filter: saturate(1.15);
       transition: background-position 120ms linear;
-      filter: saturate(1.05);
     }
 
-    .wrap{max-width:1100px;margin:0 auto;padding:22px 18px 70px}
+    .wrap{max-width:1120px;margin:0 auto;padding:22px 18px 78px}
 
-    /* Header */
+    /* Sticky header */
     .nav{
       position:sticky; top:0; z-index:20;
       display:flex;justify-content:space-between;align-items:center;gap:12px;
       padding:12px 0;
-      flex-wrap:wrap; /* important so nothing gets chopped */
-      backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(11,15,23,.82), rgba(11,15,23,.45));
-      border-bottom:1px solid rgba(31,42,68,.55);
+      flex-wrap:wrap;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(6,9,19,.86), rgba(6,9,19,.45));
+      border-bottom:1px solid var(--line);
     }
 
     .brand{
       display:flex;align-items:center;gap:12px;
-      min-width:260px;
+      min-width: 260px;
       flex: 1 1 auto;
     }
-    .brandText{min-width:0}
-    .brandName{font-weight:900;letter-spacing:-.01em}
-    .brand small{color:var(--muted);font-weight:600}
-
-    /* Avatar: put your photo at assets/headshot.jpg */
     .avatarRing{
-      width:40px;height:40px;border-radius:14px;
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.70));
+      width:42px;height:42px;border-radius:16px;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.75), rgba(66,211,154,.65));
       padding:2px;
-      box-shadow: 0 12px 40px rgba(124,92,255,.25);
-      animation: floaty 6s ease-in-out infinite;
+      box-shadow: 0 16px 55px rgba(124,92,255,.25);
       flex: 0 0 auto;
+      animation: floaty 6.2s ease-in-out infinite;
     }
     .avatar{
       width:100%;height:100%;
-      border-radius:12px;
+      border-radius:14px;
       object-fit:cover;
-      display:block;
-      background: rgba(11,15,23,.4);
+      background: rgba(0,0,0,.18);
     }
     @keyframes floaty{
       0%,100%{transform: translateY(0)}
       50%{transform: translateY(-2px)}
     }
 
-    .pill{
-      display:inline-flex;
-      gap:6px;
-      align-items:center;
-      border:1px solid rgba(31,42,68,.8);
-      background: rgba(18,26,42,.55);
-      padding:6px;border-radius:999px;color:var(--muted);
+    .brandText{min-width:0}
+    .brandName{font-weight:950;letter-spacing:-.02em;line-height:1}
+    .brand small{color:var(--muted);font-weight:650}
 
-      max-width: 100%;
-      overflow-x: auto;                 /* fix truncation: scroll instead of cut */
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding:6px; border-radius:999px;
+      max-width:100%;
+      overflow-x:auto;
       -webkit-overflow-scrolling: touch;
       white-space: nowrap;
     }
-    .pill::-webkit-scrollbar{height:6px}
-    .pill::-webkit-scrollbar-thumb{background: rgba(169,181,209,.18); border-radius:999px}
     .pill a{
-      padding:8px 11px;border-radius:999px;
+      padding:9px 12px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:650;
       transition: transform .15s ease, background .15s ease, color .15s ease;
       display:inline-block;
     }
-    .pill a:hover{background:rgba(124,92,255,.16);color:var(--text);transform: translateY(-1px)}
-    .pill a.active{background:rgba(0,208,255,.14);color:var(--text)}
+    .pill a:hover{background:rgba(0,208,255,.12); color:var(--text); transform: translateY(-1px)}
+    .pill a.active{background:rgba(124,92,255,.16); color:var(--text)}
 
     /* Layout */
-    .hero{margin-top:18px;display:grid;grid-template-columns:1.55fr .95fr;gap:14px;align-items:stretch}
+    .hero{margin-top:18px;display:grid;grid-template-columns:1.6fr .9fr;gap:14px;align-items:stretch}
     @media (max-width:920px){.hero{grid-template-columns:1fr}}
-    .sec{margin-top:16px;display:grid;gap:12px}
+    .sec{margin-top:18px;display:grid;gap:12px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
     @media (max-width:920px){.grid{grid-template-columns:1fr}}
 
     .card{
-      background:var(--card);
-      border:1px solid rgba(31,42,68,.75);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--line);
       border-radius:var(--radius);
       padding:18px;
       box-shadow: var(--shadow);
@@ -163,9 +169,11 @@
     .card:before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(420px 260px at 10% 0%, rgba(124,92,255,.20), transparent 60%),
-                  radial-gradient(420px 260px at 90% 15%, rgba(0,208,255,.14), transparent 60%);
-      opacity:.85;
+      background:
+        radial-gradient(460px 280px at 12% 0%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(460px 280px at 90% 10%, rgba(0,208,255,.18), transparent 60%),
+        radial-gradient(460px 280px at 40% 110%, rgba(66,211,154,.12), transparent 60%);
+      opacity:.92;
       pointer-events:none;
       transition: opacity .25s ease;
     }
@@ -174,200 +182,152 @@
     .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.14em;position:relative;z-index:2}
 
     h1{
-      font-size:46px;line-height:1.05;margin:8px 0 8px;
+      font-size:48px;line-height:1.05;margin:10px 0 10px;
       position:relative; z-index:2;
-      letter-spacing:-.02em;
+      letter-spacing:-.03em;
     }
     h2{margin:0;font-size:18px;position:relative;z-index:2}
-    .sub{color:var(--muted);font-size:16px;line-height:1.55;position:relative;z-index:2}
-    .sub strong{color:var(--text);font-weight:800}
+    .sub{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      position:relative; z-index:2;
+    }
+    .sub strong{color:var(--text);font-weight:900}
 
     .chipline{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px;position:relative;z-index:2}
     .chip{
       display:inline-flex;align-items:center;gap:8px;
       padding:8px 10px;border-radius:999px;
-      background: rgba(11,15,23,.35);
-      border:1px solid rgba(31,42,68,.8);
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
       color:var(--muted);
       font-size:13px;
-      transition: transform .15s ease, border-color .15s ease;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
     }
-    .chip:hover{transform: translateY(-1px); border-color: rgba(124,92,255,.55)}
-    .statusdot{width:8px;height:8px;border-radius:999px;background:var(--good); box-shadow: 0 0 0 4px rgba(66,211,154,.15)}
+    .chip:hover{transform: translateY(-1px); border-color: rgba(0,208,255,.35); background: rgba(0,208,255,.06)}
+    .statusdot{width:8px;height:8px;border-radius:999px;background:var(--a3); box-shadow: 0 0 0 4px rgba(66,211,154,.14)}
 
     .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;position:relative;z-index:2}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:10px 14px;border-radius:14px;
-      border:1px solid rgba(31,42,68,.85);
-      background: rgba(18,26,42,.65);
-      transition: transform .15s ease, filter .15s ease, background .15s ease;
+      padding:11px 14px;border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      transition: transform .15s ease, filter .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
       cursor:pointer;
+      font-weight:750;
+      color:var(--text);
     }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(124,92,255,.98), rgba(0,208,255,.62));
-      border:none;color:#061023;font-weight:900;
-      box-shadow: 0 14px 40px rgba(124,92,255,.22);
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,208,255,.62), rgba(66,211,154,.45));
+      border: none;
+      color:#071023;
+      box-shadow: 0 18px 55px rgba(124,92,255,.22);
     }
-    .btn:hover{transform: translateY(-2px)}
+    .btn:hover{transform: translateY(-2px); border-color: rgba(0,208,255,.35)}
     .btn:active{transform: translateY(0px); filter: brightness(.98)}
+    .btn.ghost{background: rgba(255,255,255,.03)}
+    .btn.small{padding:9px 12px;border-radius:14px;font-weight:700}
 
     .mini{display:grid;gap:10px}
     .tag{
       display:flex;gap:10px;align-items:flex-start;
-      padding:12px 12px;border-radius:16px;
-      border:1px solid rgba(31,42,68,.75);
-      background: rgba(11,15,23,.28);
+      padding:12px 12px;border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
       color:var(--muted);
-      transition: transform .18s ease, border-color .18s ease;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
       position:relative;z-index:2;
     }
-    .tag:hover{transform: translateY(-2px); border-color: rgba(0,208,255,.35)}
+    .tag:hover{transform: translateY(-2px); border-color: rgba(124,92,255,.35); background: rgba(124,92,255,.06)}
     .tag b{color:var(--text)}
     .tag .badge{
       margin-left:auto;
       font-size:12px;
       padding:6px 10px;
       border-radius:999px;
-      border:1px solid rgba(124,92,255,.35);
-      color:var(--muted);
-      background: rgba(124,92,255,.10);
+      border:1px solid rgba(0,208,255,.28);
+      color:var(--text);
+      background: rgba(0,208,255,.10);
       white-space:nowrap;
     }
 
-    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.6;position:relative;z-index:2}
-    .proj p{color:var(--muted);margin:8px 0 0;line-height:1.55;position:relative;z-index:2}
+    ul{margin:10px 0 0;padding-left:18px;color:var(--muted);line-height:1.65;position:relative;z-index:2}
+    .proj p{color:var(--muted);margin:8px 0 0;line-height:1.6;position:relative;z-index:2}
 
-    /* Horizontal scroll story */
-    .hwrap{display:flex;align-items:center;gap:10px;margin-top:12px;position:relative;z-index:2}
-    .hbtn{
-      width:42px;height:42px;border-radius:14px;
-      border:1px solid rgba(31,42,68,.85);
-      background: rgba(18,26,42,.55);
-      color:var(--text);
-      cursor:pointer;
-      transition: transform .15s ease;
-      flex: 0 0 auto;
-    }
-    .hbtn:hover{transform: translateY(-2px)}
-    .hscroll{
-      display:flex; gap:12px;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      padding:6px 2px 10px;
-      flex:1 1 auto;
-      overscroll-behavior-x: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-    .hscroll::-webkit-scrollbar{height:8px}
-    .hscroll::-webkit-scrollbar-thumb{background: rgba(169,181,209,.16); border-radius:999px}
-    .hpanel{
-      min-width: 340px;
-      max-width: 560px;
-      scroll-snap-align: start;
-      border-radius: 18px;
-      border:1px solid rgba(31,42,68,.75);
-      background: rgba(11,15,23,.30);
-      padding:16px;
-      box-shadow: 0 16px 50px rgba(0,0,0,.25);
-      transform: translateX(-10px);
-      opacity: 0;
-      animation: slideIn 700ms ease forwards;
-      position:relative;
-      overflow:hidden;
-    }
-    .hpanel:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(380px 240px at 15% 10%, rgba(0,208,255,.10), transparent 55%),
-                  radial-gradient(380px 240px at 85% 15%, rgba(124,92,255,.14), transparent 60%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .hpanel > *{position:relative; z-index:2}
-    .hpanel:nth-child(2){animation-delay: 80ms}
-    .hpanel:nth-child(3){animation-delay: 160ms}
-    .hpanel:nth-child(4){animation-delay: 240ms}
-    @keyframes slideIn{to{transform: translateX(0); opacity: 1}}
-
-    /* Hobbies interactive */
-    .hobbies{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;position:relative;z-index:2}
-    .hobby{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:10px 12px;border-radius:999px;
-      border:1px solid rgba(31,42,68,.85);
-      background: rgba(18,26,42,.45);
-      color:var(--muted);
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-      cursor:pointer;
-      user-select:none;
-    }
-    .hobby:hover{transform: translateY(-2px); border-color: rgba(124,92,255,.55)}
-    .hobby.active{
-      color:var(--text);
-      background: rgba(124,92,255,.12);
-      border-color: rgba(0,208,255,.35);
-    }
-    .spark{
-      width:10px;height:10px;border-radius:999px;
-      background: rgba(255,255,255,.22);
-      box-shadow: 0 0 0 4px rgba(255,255,255,.06);
-    }
-    .hobby.active .spark{
-      background: var(--warn);
-      box-shadow: 0 0 0 5px rgba(255,204,102,.15);
-    }
-    .hobbyPanel{
-      margin-top:12px;
-      padding:14px 14px;
-      border-radius:16px;
-      border:1px solid rgba(31,42,68,.75);
-      background: rgba(11,15,23,.30);
-      color:var(--muted);
+    /* Highlight strip */
+    .highlights{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;
       position:relative; z-index:2;
-      overflow:hidden;
     }
-    .hobbyPanel strong{color:var(--text)}
+    .hl{
+      flex:1 1 220px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius:18px;
+      padding:12px 12px;
+      display:flex; gap:10px; align-items:flex-start;
+      transition: transform .18s ease, border-color .18s ease;
+      min-width: 220px;
+    }
+    .hl:hover{transform: translateY(-2px); border-color: rgba(66,211,154,.35)}
+    .hl .icon{
+      width:38px; height:38px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(0,208,255,.18), rgba(124,92,255,.14), rgba(66,211,154,.10));
+      border:1px solid rgba(255,255,255,.10);
+      display:flex; align-items:center; justify-content:center;
+      flex:0 0 auto;
+    }
+    .hl b{color:var(--text)}
+    .hl .t{color:var(--muted); font-size:14px; line-height:1.45}
 
     /* Contact */
     input,textarea{
       width:100%;
-      padding:12px 12px;border-radius:14px;
-      border:1px solid rgba(31,42,68,.9);
-      background: rgba(11,15,23,.50);
+      padding:12px 12px;border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
       color:var(--text);
       outline:none;
-      transition: border-color .15s ease;
+      transition: border-color .15s ease, box-shadow .15s ease;
       position:relative; z-index:2;
     }
-    input:focus, textarea:focus{border-color: rgba(0,208,255,.45)}
+    input:focus, textarea:focus{
+      border-color: rgba(0,208,255,.45);
+      box-shadow: 0 0 0 4px rgba(0,208,255,.12);
+    }
     textarea{min-height:120px;resize:vertical}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     @media (max-width:920px){.row{grid-template-columns:1fr}}
 
-    .small{font-size:13px;color:var(--muted);line-height:1.5;margin-top:10px;position:relative;z-index:2}
+    .small{font-size:13px;color:var(--muted);line-height:1.55;margin-top:10px;position:relative;z-index:2}
+
     .footer{
       margin-top:18px;color:var(--muted);font-size:13px;
       display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       position:relative; z-index:2;
     }
-    .hint{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:10px 12px;border-radius:16px;
-      border:1px solid rgba(31,42,68,.75);
-      background: rgba(11,15,23,.30);
+
+    .toast{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
       color:var(--muted);
-      position:relative; z-index:2;
-      margin-top:12px;
+      display:none;
     }
-    .hint code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      padding:5px 8px;border-radius:10px;
-      border:1px solid rgba(31,42,68,.8);
-      background: rgba(18,26,42,.35);
-      color:var(--text);
+    .toast.good{
+      border-color: rgba(66,211,154,.35);
+      background: rgba(66,211,154,.10);
+      color: var(--text);
+    }
+    .toast.bad{
+      border-color: rgba(255,204,102,.35);
+      background: rgba(255,204,102,.10);
+      color: var(--text);
     }
 
     /* Scroll reveal */
@@ -379,6 +339,13 @@
     .reveal.in{
       opacity:1;
       transform: translateY(0) scale(1);
+    }
+
+    /* Accessible focus */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0,208,255,.18);
+      border-color: rgba(0,208,255,.55) !important;
     }
 
     /* Subtle particle */
@@ -405,181 +372,136 @@
   <div class="noise" aria-hidden="true"></div>
 
   <div class="wrap">
-    <div class="nav">
+    <header class="nav" role="navigation" aria-label="Primary">
       <div class="brand">
         <div class="avatarRing">
           <img class="avatar" src="assets/headshot.jpg" alt="Jorge Fraile headshot" />
         </div>
         <div class="brandText">
           <div class="brandName">Jorge Fraile</div>
-          <small>Undergraduate Systems Administrator</small>
+          <small>Systems + Cloud • CS @ Florida State University</small>
         </div>
       </div>
 
-      <div class="pill" id="navPill">
+      <nav class="pill" id="navPill">
         <a href="#about">About</a>
         <a href="#work">Work</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-      </div>
-    </div>
+      </nav>
+    </header>
 
-    <section class="hero">
+    <section class="hero" id="top">
       <div class="card reveal">
         <div class="chipline">
           <span class="chip"><span class="statusdot"></span> Available for internships</span>
-          <span class="chip">FSU CS Junior</span>
-          <span class="chip">Linux + Windows Ops</span>
-          <span class="chip">Cloud learning: AWS</span>
+          <span class="chip">IT Ops • Incident Response</span>
+          <span class="chip">Linux + Windows</span>
+          <span class="chip">Cloud track: AWS / Azure</span>
         </div>
 
-        <h1>Jorge Fraile</h1>
+        <h1>Reliable systems.<br/>Fast, calm support.</h1>
+
         <div class="sub">
-          Undergraduate Systems Administrator • CS Junior @ Florida State University<br/>
-          I keep systems reliable, users unblocked, and downtime low. Building toward <strong>cloud + infrastructure</strong> roles.
+          I’m an Undergraduate Systems Administrator supporting <strong>200+ users</strong> with Linux/Windows operations, troubleshooting, and documentation.
+          I’m building toward <strong>cloud + infrastructure</strong> roles where uptime and clean execution matter.
         </div>
 
         <div class="btns">
-          <a class="btn primary" href="YOUR_RESUME_LINK.pdf" target="_blank" rel="noopener">📄 View Resume</a>
-          <a class="btn" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">🔗 LinkedIn</a>
-          <a class="btn" href="https://github.com/Jfraile05" target="_blank" rel="noopener">💻 GitHub</a>
-          <a class="btn" href="#contact">✉️ Contact Me</a>
+          <!-- FIXED: put your PDF at /assets/Jorge_Fraile_Systems_Admin_Resume.pdf -->
+          <a class="btn primary" href="assets/Jorge_Fraile_Systems_Admin_Resume.pdf" target="_blank" rel="noopener">
+            📄 Resume (PDF)
+          </a>
+          <a class="btn" href="mailto:Jf23a@fsu.edu?subject=Website%20message%20for%20Jorge%20Fraile">
+            ✉️ Email
+          </a>
+          <a class="btn ghost" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">🔗 LinkedIn</a>
+          <a class="btn ghost" href="https://github.com/Jfraile05" target="_blank" rel="noopener">💻 GitHub</a>
+          <a class="btn small" href="#contact">🚀 Contact</a>
         </div>
 
-        <div class="hint">
-          <div>Quick vibe check: I’m technical, but I’m not a robot.</div>
-          <code>Scroll ↓ for the human side</code>
+        <div class="highlights" aria-label="Highlights">
+          <div class="hl">
+            <div class="icon">⚡</div>
+            <div class="t"><b>High-volume support</b><br/>Triage, fixes, and follow-through — no chaos.</div>
+          </div>
+          <div class="hl">
+            <div class="icon">🧰</div>
+            <div class="t"><b>Practical ops</b><br/>Endpoints, access, labs/classroom tech, docs.</div>
+          </div>
+          <div class="hl">
+            <div class="icon">☁️</div>
+            <div class="t"><b>Cloud habits</b><br/>Security groups, uptime, logs, clean deployments.</div>
+          </div>
         </div>
       </div>
 
-      <div class="card mini reveal">
+      <aside class="card mini reveal" aria-label="Now">
         <div class="k">Now</div>
 
         <div class="tag">
-          <div>🛠️ <b>IT Ops</b><br/>Linux + Windows support, endpoint troubleshooting, classroom tech</div>
+          <div>🛠️ <b>Systems support</b><br/>Linux/Windows, troubleshooting, lifecycle operations</div>
           <div class="badge">hands-on</div>
         </div>
 
         <div class="tag">
-          <div>☁️ <b>Cloud learning</b><br/>AWS EC2, security groups, service uptime habits</div>
+          <div>📈 <b>Reliability mindset</b><br/>Root cause, documentation, repeatable fixes</div>
+          <div class="badge">steady</div>
+        </div>
+
+        <div class="tag">
+          <div>☁️ <b>Cloud learning</b><br/>AWS + Azure concepts, services, identity basics</div>
           <div class="badge">building</div>
         </div>
 
         <div class="tag">
-          <div>🧠 <b>CS fundamentals</b><br/>C/C++ reliability, debugging, clean structure</div>
-          <div class="badge">sharp</div>
-        </div>
-
-        <div class="tag">
           <div>🌎 <b>Bilingual</b><br/>English + Spanish</div>
-          <div class="badge">clear comms</div>
+          <div class="badge">clear</div>
         </div>
-      </div>
-    </section>
-
-    <!-- Horizontal scroll story -->
-    <section class="sec">
-      <div class="card reveal">
-        <div class="k">Scroll Story</div>
-        <div class="sub" style="margin-top:8px">Drag sideways. Or use the arrows. Quick snapshot of who I am.</div>
-
-        <div class="hwrap">
-          <button class="hbtn" id="leftBtn" aria-label="Scroll left">◀</button>
-
-          <div class="hscroll" id="hscroll">
-            <div class="hpanel">
-              <div class="k">About</div>
-              <h2 style="margin-top:6px">Systems-minded. Human-first.</h2>
-              <p class="sub" style="margin-top:8px">
-                I support real people with real problems. I like calm triage, clean fixes, and documentation that helps the next person.
-              </p>
-            </div>
-
-            <div class="hpanel">
-              <div class="k">Work Style</div>
-              <h2 style="margin-top:6px">Fast response. No drama.</h2>
-              <p class="sub" style="margin-top:8px">
-                Prioritize impact. Reduce downtime. Fix root causes. Automate repeat pain.
-              </p>
-            </div>
-
-            <div class="hpanel">
-              <div class="k">Interests</div>
-              <h2 style="margin-top:6px">Gym • Trading • Cooking • Swimming</h2>
-              <p class="sub" style="margin-top:8px">
-                I’m routine-driven. I like measurable progress and systems that compound over time.
-              </p>
-            </div>
-
-            <div class="hpanel">
-              <div class="k">Focus</div>
-              <h2 style="margin-top:6px">Cloud + infrastructure track</h2>
-              <p class="sub" style="margin-top:8px">
-                AWS fundamentals now. Reliability habits always. I want to build and operate production systems.
-              </p>
-            </div>
-          </div>
-
-          <button class="hbtn" id="rightBtn" aria-label="Scroll right">▶</button>
-        </div>
-      </div>
+      </aside>
     </section>
 
     <section id="about" class="sec">
       <div class="card reveal">
         <div class="k">About</div>
         <p class="sub" style="margin:10px 0 0">
-          I’m a Computer Science junior at FSU working with the Department of Computer Science Systems Group.
-          I support Linux and Windows systems, classroom technology, and high-volume department equipment.
-          I like clean troubleshooting, clear documentation, and fixes that stick.
+          I’m a Computer Science junior at Florida State University supporting the Department of Computer Science Systems Group.
+          I like calm incident handling, clean troubleshooting, and documentation that makes the next fix faster.
         </p>
-
-        <div class="k" style="margin-top:14px">Outside of work</div>
-        <div class="sub" style="margin-top:8px">
-          I’m big on routines and skill-building. If I’m not solving tickets or coding, I’m probably training, cooking, or tracking markets.
-        </div>
-
-        <div class="hobbies" id="hobbies">
-          <div class="hobby active" data-key="gym"><span class="spark"></span> Gym</div>
-          <div class="hobby" data-key="trading"><span class="spark"></span> Trading</div>
-          <div class="hobby" data-key="cooking"><span class="spark"></span> Cooking</div>
-          <div class="hobby" data-key="swimming"><span class="spark"></span> Swimming</div>
-        </div>
-
-        <div class="hobbyPanel" id="hobbyPanel" aria-live="polite">
-          <strong>Gym:</strong> Consistency mindset. I like measurable progress and disciplined routines. It carries into how I troubleshoot and build systems.
-        </div>
+        <p class="sub" style="margin:10px 0 0">
+          Outside of tech: gym, cooking, swimming, and anything that rewards consistency.
+        </p>
       </div>
 
       <div class="grid">
         <div class="card reveal">
-          <div class="k">Top Skills</div>
+          <div class="k">Strengths</div>
           <ul>
             <li>Linux & Windows administration</li>
-            <li>Incident response, ticketing, RCA</li>
-            <li>Endpoint support + device repair</li>
+            <li>Incident response, ticketing, RCA habits</li>
+            <li>Endpoint support, troubleshooting, device maintenance</li>
             <li>Networking fundamentals (TCP/IP)</li>
-            <li>AWS fundamentals (EC2, security groups)</li>
+            <li>Cloud fundamentals (EC2, security groups, identity)</li>
           </ul>
         </div>
 
         <div class="card reveal">
           <div class="k">Coursework</div>
           <ul>
-            <li>Advanced Java Programming</li>
             <li>Data Structures & Algorithms</li>
             <li>Databases</li>
+            <li>Advanced Java Programming</li>
             <li>Edge Networks</li>
           </ul>
         </div>
 
         <div class="card reveal">
-          <div class="k">Tools / Platforms</div>
+          <div class="k">Tools</div>
           <ul>
-            <li>Linux, Windows 11, macOS</li>
+            <li>Linux, Windows, macOS</li>
+            <li>Git/GitHub</li>
             <li>Ticketing + documentation workflows</li>
             <li>Excel reporting + process docs</li>
-            <li>Git/GitHub</li>
           </ul>
         </div>
       </div>
@@ -588,12 +510,12 @@
     <section id="work" class="sec">
       <div class="card reveal">
         <div class="k">Experience</div>
-        <h2>Systems Administration Technician, Systems Group • FSU Computer Science</h2>
+        <h2>Systems Administration Technician • FSU Computer Science (Systems Group)</h2>
         <ul>
-          <li>Support Linux and Windows systems with end-user troubleshooting and maintenance.</li>
-          <li>Handle incident response, queue management, and root-cause analysis through ticket workflows.</li>
-          <li>Monitor alerts and after-hours queues; improve reliability with automation-aware processes.</li>
-          <li>Maintain asset inventory and support PC lifecycle management (setup, refresh, maintenance).</li>
+          <li>Support Linux and Windows systems for 200+ users to keep uptime, access, and classroom tech reliable.</li>
+          <li>Handle incident intake, prioritization, troubleshooting, escalation, and resolution through ticket workflows.</li>
+          <li>Maintain assets and endpoints across setup, refresh, and support lifecycle tasks.</li>
+          <li>Improve support quality with documentation and repeatable processes.</li>
         </ul>
       </div>
     </section>
@@ -603,19 +525,22 @@
         <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>AWS EC2 REST API Service (Linux) • Python</h2>
-          <p>Deployed a Linux service on EC2 with systemd + gunicorn, security groups, health checks, and structured request validation.</p>
+          <p>Deployed a Linux service with secure network controls, health checks, structured input validation, and service monitoring.</p>
+          <div class="btns" style="margin-top:12px">
+            <a class="btn small ghost" href="https://github.com/Jfraile05" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
         </div>
 
         <div class="card proj reveal">
           <div class="k">Project</div>
-          <h2>Digital Banking Management System • C++</h2>
-          <p>Built a system for 10K+ records emphasizing validation, fault isolation, and improved data retrieval performance.</p>
+          <h2>Digital Banking System • C++</h2>
+          <p>Built a system emphasizing validation, fault isolation, and performance-minded data access patterns.</p>
         </div>
 
         <div class="card proj reveal">
           <div class="k">Project</div>
           <h2>Pokemon Simulator • C++</h2>
-          <p>Large-scale simulation focused on stability and controlled state management across 100K+ outcomes with better file I/O.</p>
+          <p>Large simulation focusing on stability and controlled state management across large outcome sets.</p>
         </div>
       </div>
     </section>
@@ -624,24 +549,41 @@
       <div class="card reveal">
         <div class="k">Contact</div>
         <h2>Send a message</h2>
-        <p class="sub" style="margin:8px 0 12px">If you’re hiring for IT, systems, cloud, or infrastructure roles, I’ll respond fast.</p>
+        <p class="sub" style="margin:8px 0 12px">Hiring for IT, systems, cloud, or infrastructure roles? I respond quickly.</p>
 
+        <!-- Formspree stays, but now you get a real success/error message -->
         <form action="https://formspree.io/f/xdaaoddk" method="POST" id="contactForm">
           <div class="row">
-            <input type="text" name="name" placeholder="Your name" required />
-            <input type="email" name="email" placeholder="Your email" required />
+            <input type="text" name="name" placeholder="Your name" autocomplete="name" required />
+            <input type="email" name="email" placeholder="Your email" autocomplete="email" required />
           </div>
 
-          <input type="hidden" name="_subject" value="New message from personal website" />
+          <!-- Honeypot (spam filter) -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <input type="hidden" name="_subject" value="New message from jorgefraile.com" />
           <textarea name="message" placeholder="Message" required></textarea>
 
           <button type="submit" class="btn primary" style="margin-top:10px">🚀 Send</button>
-          <div id="formNote" class="small" style="margin-top:8px"></div>
-        </form>
+          <div id="formToast" class="toast" role="status" aria-live="polite"></div>
 
-        <div class="small">
-          Or email me directly: <a href="mailto:Jf23a@fsu.edu">Jf23a@fsu.edu</a>
+          <div class="small">
+            Or email me directly:
+            <a href="mailto:Jf23a@fsu.edu">Jf23a@fsu.edu</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="card reveal">
+        <div class="k">Quick links</div>
+        <div class="btns">
+          <a class="btn" href="assets/Jorge_Fraile_Systems_Admin_Resume.pdf" target="_blank" rel="noopener">📄 Resume</a>
+          <a class="btn" href="mailto:Jf23a@fsu.edu?subject=Hello%20Jorge%20(from%20your%20website)">✉️ Email me</a>
+          <button class="btn ghost" id="copyEmail" type="button">📋 Copy email</button>
+          <a class="btn ghost" href="https://linkedin.com/in/jorge-fraile" target="_blank" rel="noopener">🔗 LinkedIn</a>
+          <a class="btn ghost" href="https://github.com/Jfraile05" target="_blank" rel="noopener">💻 GitHub</a>
         </div>
+        <div class="small" id="copyNote"></div>
       </div>
 
       <div class="footer">
@@ -693,58 +635,54 @@
 
     sections.forEach(sec => navIO.observe(sec));
 
-    // Hobby interaction
-    const hobbyCopy = {
-      gym: {
-        title: "Gym",
-        text: "Consistency mindset. I like measurable progress and disciplined routines. It carries into how I troubleshoot and build systems."
-      },
-      trading: {
-        title: "Trading",
-        text: "Risk management and discipline. I focus on process and probability, not hype. Same approach to incidents: control variables and act fast."
-      },
-      cooking: {
-        title: "Cooking",
-        text: "Systems thinking in a different form. Prep, timing, cleanup, repeatability. I like making good results consistent."
-      },
-      swimming: {
-        title: "Swimming",
-        text: "Clear head, endurance, steady pace. It keeps me sharp and helps me stay calm under pressure when issues hit."
-      }
-    };
+    // Contact form: show success/error without leaving the page
+    const form = document.getElementById("contactForm");
+    const toast = document.getElementById("formToast");
 
-    const hobbies = document.getElementById("hobbies");
-    const panel = document.getElementById("hobbyPanel");
+    function showToast(msg, kind){
+      toast.className = "toast " + (kind || "");
+      toast.textContent = msg;
+      toast.style.display = "block";
+    }
 
-    if (hobbies && panel) {
-      hobbies.addEventListener("click", (e) => {
-        const btn = e.target.closest(".hobby");
-        if (!btn) return;
+    if (form && toast) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        showToast("Sending…", "");
 
-        const key = btn.getAttribute("data-key");
-        if (!hobbyCopy[key]) return;
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { "Accept": "application/json" }
+          });
 
-        document.querySelectorAll(".hobby").forEach(h => h.classList.toggle("active", h === btn));
-
-        const { title, text } = hobbyCopy[key];
-        panel.innerHTML = "<strong>" + title + ":</strong> " + text;
-
-        panel.animate([
-          { transform: "translateY(2px)", opacity: .85 },
-          { transform: "translateY(0px)", opacity: 1 }
-        ], { duration: 220, easing: "ease-out" });
+          if (res.ok) {
+            form.reset();
+            showToast("Sent. I’ll get back to you soon.", "good");
+          } else {
+            showToast("Something went wrong. Email me directly instead.", "bad");
+          }
+        } catch (err) {
+          showToast("Network issue. Email me directly instead.", "bad");
+        }
       });
     }
 
-    // Horizontal scroll buttons
-    const hs = document.getElementById("hscroll");
-    const leftBtn = document.getElementById("leftBtn");
-    const rightBtn = document.getElementById("rightBtn");
+    // Copy email button
+    const copyBtn = document.getElementById("copyEmail");
+    const copyNote = document.getElementById("copyNote");
+    const email = "Jf23a@fsu.edu";
 
-    if (hs && leftBtn && rightBtn) {
-      const step = () => Math.min(420, hs.clientWidth * 0.75);
-      leftBtn.addEventListener("click", () => hs.scrollBy({ left: -step(), behavior: "smooth" }));
-      rightBtn.addEventListener("click", () => hs.scrollBy({ left: step(), behavior: "smooth" }));
+    if (copyBtn && copyNote) {
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          copyNote.textContent = "Copied: " + email;
+        } catch {
+          copyNote.textContent = "Copy failed. Email: " + email;
+        }
+      });
     }
 
     // Particle trail (subtle)
@@ -762,15 +700,6 @@
         document.body.appendChild(d);
         setTimeout(() => d.remove(), 800);
       }, { passive: true });
-    }
-
-    // Contact form note
-    const form = document.getElementById("contactForm");
-    const note = document.getElementById("formNote");
-    if (form && note) {
-      form.addEventListener("submit", () => {
-        note.textContent = "Sending…";
-      });
     }
   </script>
 </body>
